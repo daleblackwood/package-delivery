@@ -1,0 +1,13 @@
+# Blender MTL File: 'CharCEO.blend'
+# Material Count: 1
+
+newmtl CharCEOMat
+Ns 728.999986
+Ka 0.308333 0.308333 0.308333
+Kd 0.800000 0.800000 0.800000
+Ks 0.816667 0.816667 0.816667
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd CharCEOTex.png

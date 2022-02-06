@@ -1,0 +1,63 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Blocks/WoodFloorMat.material" type="Material" id=1]
+[ext_resource path="res://Blocks/WarehouseFloorMat.material" type="Material" id=2]
+[ext_resource path="res://Blocks/Floor.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://Props/Conveyor/Conveyor.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Props/Package/Package.obj" type="ArrayMesh" id=5]
+[ext_resource path="res://Props/Bin/Bin.obj" type="ArrayMesh" id=6]
+[ext_resource path="res://Props/Bin/Bin.material" type="Material" id=7]
+[ext_resource path="res://Props/Package/Package.tscn" type="PackedScene" id=8]
+[ext_resource path="res://addons/SpawnGridMap/SpawnGridMapSpawner.gd" type="Script" id=9]
+[ext_resource path="res://Props/Bin/Bin.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Props/Conveyor/Conveyor.material" type="Material" id=11]
+[ext_resource path="res://Props/Conveyor/Conveyor.obj" type="ArrayMesh" id=12]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 1, 0.5, 1 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="WarehouseFloor" type="MeshInstance" parent="."]
+mesh = ExtResource( 3 )
+material/0 = ExtResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="WarehouseFloor"]
+
+[node name="CollisionShape" type="CollisionShape" parent="WarehouseFloor/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+shape = SubResource( 1 )
+
+[node name="WoodFloor" type="MeshInstance" parent="."]
+transform = Transform( 0.999996, 0.00179044, -0.00201278, -0.00178561, 0.999996, 0.00240919, 0.00201707, -0.0024056, 0.999995, 2, 0, 0 )
+mesh = ExtResource( 3 )
+material/0 = ExtResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="WoodFloor"]
+
+[node name="CollisionShape" type="CollisionShape" parent="WoodFloor/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+shape = SubResource( 1 )
+
+[node name="Conveyor" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0 )
+mesh = ExtResource( 12 )
+skeleton = NodePath("")
+material/0 = ExtResource( 11 )
+script = ExtResource( 9 )
+scenes = [ ExtResource( 4 ) ]
+
+[node name="Package" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.4, 0 )
+mesh = ExtResource( 5 )
+material/0 = null
+script = ExtResource( 9 )
+scenes = [ ExtResource( 8 ) ]
+
+[node name="Bin" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.4, 0 )
+mesh = ExtResource( 6 )
+skeleton = NodePath("../Package")
+material/0 = ExtResource( 7 )
+script = ExtResource( 9 )
+scenes = [ ExtResource( 10 ) ]
