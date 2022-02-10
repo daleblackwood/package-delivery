@@ -69,7 +69,7 @@ func process_piss(delta: float) -> void:
 		piss_time -= delta * 10.0
 		if piss_time < 0.0:
 			piss_time = 0.0
-		is_draining = false
+			is_draining = false
 	else:
 		piss_time += delta
 	var pissv = clamp(piss_time / piss_duration, 0.0, 1.0)
@@ -100,7 +100,7 @@ func process_input() -> void:
 		input.move = input.move.normalized()
 		
 	var want_jump = Input.is_key_pressed(KEY_SPACE)
-	var want_use = Input.is_key_pressed(KEY_SHIFT)
+	var want_use = Input.is_key_pressed(KEY_SHIFT) or want_jump
 	
 	input.jump_now = want_jump and not input.jump_hold
 	input.jump_hold = want_jump
@@ -163,4 +163,4 @@ func drain_piss() -> void:
 	
 	
 func can_piss() -> bool:
-	return carriable == null or carriable.carrier != self
+	return not is_draining and (carriable == null or carriable.carrier != self)

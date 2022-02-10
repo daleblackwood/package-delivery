@@ -13,3 +13,5 @@ func on_body_entered(body: Node) -> void:
 	var kb = body as KinematicBody
 	kb.visible = false
 	kb.pause_mode = Node.PAUSE_MODE_STOP
+	kb.collision_layer = 0
+	kb.collision_mask = 0
