@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://UI/GameUI.gd" type="Script" id=1]
+[ext_resource path="res://UI/UIMessage.gd" type="Script" id=2]
+[ext_resource path="res://UI/UITheme.tres" type="Theme" id=3]
+[ext_resource path="res://UI/FontTitle.tres" type="DynamicFont" id=4]
+
+[node name="GameUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 3 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Message" type="VBoxContainer" parent="."]
+anchor_top = 0.128
+anchor_right = 1.0
+anchor_bottom = 0.138
+margin_bottom = 108.0
+custom_constants/separation = -6
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Message"]
+margin_right = 1024.0
+margin_bottom = 68.0
+custom_fonts/font = ExtResource( 4 )
+text = "Title"
+align = 1
+
+[node name="Subtitle" type="Label" parent="Message"]
+margin_top = 62.0
+margin_right = 1024.0
+margin_bottom = 108.0
+text = "Subtitle"
+align = 1

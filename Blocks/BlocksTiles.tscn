@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Blocks/WoodFloorMat.material" type="Material" id=1]
 [ext_resource path="res://Blocks/WarehouseFloorMat.material" type="Material" id=2]
@@ -12,9 +12,14 @@
 [ext_resource path="res://Props/Bin/Bin.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Props/Conveyor/Conveyor.material" type="Material" id=11]
 [ext_resource path="res://Props/Conveyor/Conveyor.obj" type="ArrayMesh" id=12]
+[ext_resource path="res://Blocks/Feet.material" type="Material" id=13]
+[ext_resource path="res://Props/PissArea/PissArea.tscn" type="PackedScene" id=14]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1, 0.5, 1 )
+
+[sub_resource type="PlaneMesh" id=2]
+size = Vector2( 1.2, 1.2 )
 
 [node name="Spatial" type="Spatial"]
 
@@ -61,3 +66,10 @@ skeleton = NodePath("../Package")
 material/0 = ExtResource( 7 )
 script = ExtResource( 9 )
 scenes = [ ExtResource( 10 ) ]
+
+[node name="PissArea" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0 )
+mesh = SubResource( 2 )
+material/0 = ExtResource( 13 )
+script = ExtResource( 9 )
+scenes = [ ExtResource( 14 ) ]
