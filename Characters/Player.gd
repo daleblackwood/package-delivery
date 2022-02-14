@@ -29,10 +29,16 @@ var player_index = 0
 var level: Spatial
 var piss_time = 0.0
 var is_draining = false
+var is_enabled = true
 
 
 enum PlayerState { Init, Ready, Finished, Dead }
 var state = PlayerState.Init
+
+var key_mappings = [
+	[KEY_LEFT, KEY_RIGHT, KEY_UP, KEY_DOWN, KEY_SPACE],
+	[KEY_A, KEY_D, KEY_W, KEY_S, KEY_F]
+]
 
 func _ready():
 	input = PlayerInput.new()
@@ -52,7 +58,10 @@ func reset():
 	
 	
 func set_enabled(value: bool) -> void:
+	if value == is_enabled:
+		return
 	set_process(value)
+	is_enabled = value
 	reset()
 	
 	
@@ -88,19 +97,21 @@ func process_piss(delta: float) -> void:
 func process_input() -> void:
 	input.move.x = 0.0
 	input.move.y = 0.0
-	if Input.is_key_pressed(KEY_LEFT):
-		input.move.x -= 1.0
-	if Input.is_key_pressed(KEY_RIGHT):
-		input.move.x += 1.0
-	if Input.is_key_pressed(KEY_UP):
-		input.move.y += 1.0
-	if Input.is_key_pressed(KEY_DOWN):
-		input.move.y -= 1.0
-	if input.move.length_squared() > 1.0:
-		input.move = input.move.normalized()
-		
-	var want_jump = Input.is_key_pressed(KEY_SPACE)
-	var want_use = Input.is_key_pressed(KEY_SHIFT) or want_jump
+	var want_use = false
+	var want_jump = false
+	var mapping = key_mappings[player_index] if player_index >= 0 and player_index < key_mappings.size() else null
+	if mapping:
+		if Input.is_key_pressed(mapping[0]):
+			input.move.x -= 1.0
+		if Input.is_key_pressed(mapping[1]):
+			input.move.x += 1.0
+		if Input.is_key_pressed(mapping[2]):
+			input.move.y += 1.0
+		if Input.is_key_pressed(mapping[3]):
+			input.move.y -= 1.0
+		if input.move.length_squared() > 1.0:
+			input.move = input.move.normalized()		
+		want_use = Input.is_key_pressed(mapping[4])
 	
 	input.jump_now = want_jump and not input.jump_hold
 	input.jump_hold = want_jump

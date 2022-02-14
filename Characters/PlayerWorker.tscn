@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Characters/Player.gd" type="Script" id=1]
+[ext_resource path="res://Characters/Character.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://Characters/CharWorker.tres" type="Material" id=3]
+[ext_resource path="res://Characters/Hat.tres" type="Material" id=4]
+
+[sub_resource type="CylinderShape" id=1]
+radius = 0.7
+
+[sub_resource type="CylinderMesh" id=2]
+
+[node name="PlayerWorker" type="KinematicBody"]
+script = ExtResource( 1 )
+
+[node name="Collider" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 1 )
+
+[node name="Model" type="MeshInstance" parent="."]
+material_override = ExtResource( 3 )
+mesh = ExtResource( 2 )
+skeleton = NodePath("../../GridMap")
+material/0 = ExtResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Model"]
+transform = Transform( 0.389792, 0, 0, 0, 0.169356, 0, 0, 0, 0.391131, 0, 2, 0 )
+mesh = SubResource( 2 )
+material/0 = ExtResource( 4 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="Model"]
+transform = Transform( 0.389792, 0, 0, 0, 0.0328668, 0, 0, 0, 0.505108, 0, 2, 0.182167 )
+mesh = SubResource( 2 )
+material/0 = ExtResource( 4 )

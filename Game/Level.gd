@@ -27,10 +27,13 @@ func _ready() -> void:
 func reset() -> void:
 	players = []
 	packages = []
-	for i in range(get_child_count()):
-		var child = get_child(i)
-		if child.has_method("register_player"):
-			register_player(child)
+	var origin = lift.global_transform.origin + lift.global_transform.basis.z * 1.0
+	for i in range(Game.player_count):
+		var prefab_i = i % Game.player_count
+		var player = Game.player_prefabs[prefab_i].instance()
+		add_child(player)
+		player.global_transform.origin = origin + Vector3.RIGHT * (i * 2.0 / Game.player_count * 2.0 - Game.player_count)
+		register_player(player)
 	set_state(LevelState.Ready)
 
 
@@ -76,7 +79,7 @@ func _process(delta: float) -> void:
 				finished_player_count += 1
 		if live_player_count == 0:
 			set_state(LevelState.Failed)
-		if finished_player_count == players.size():
+		if finished_player_count > 0:
 			set_state(LevelState.Complete)
 	if state >= LevelState.Complete and state_time > 3.0:
 		if state == LevelState.Complete:

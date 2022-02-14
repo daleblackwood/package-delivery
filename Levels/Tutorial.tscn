@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://addons/SpawnGridMap/SpawnGridMap.gd" type="Script" id=1]
+[ext_resource path="res://Camera/StageCam.gd" type="Script" id=2]
+[ext_resource path="res://Game/Level.gd" type="Script" id=3]
+[ext_resource path="res://Blocks/Blocks.meshlib" type="MeshLibrary" id=4]
+[ext_resource path="res://Props/PissArea/Piss.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Props/Lift/Lift.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Blocks/BlocksTiles.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Levels/Level1.tscn" type="PackedScene" id=9]
+
+[node name="Level" type="Spatial"]
+script = ExtResource( 3 )
+prefabs = [ ExtResource( 5 ) ]
+next_level = ExtResource( 9 )
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource( 4 )
+cell_size = Vector3( 2, 1, 2 )
+cell_center_y = false
+data = {
+"cells": PoolIntArray( 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 65540, 0, 1, 65541, 0, 1048577, 65542, 0, 1048577, 65544, 0, 1048577, 65545, 0, 1048577, 65546, 0, 1048577, 65547, 0, 1048577, 65548, 0, 1048577, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 0, 9, 1, 0, 10, 1, 0, 11, 1, 0, 12, 1, 0, 65540, 1, 1, 65547, 1, 5, 65548, 1, 655361, 4, 2, 0, 5, 2, 0, 6, 2, 0, 7, 2, 0, 8, 2, 0, 9, 2, 0, 10, 2, 0, 11, 2, 0, 12, 2, 0, 65540, 2, 1, 65548, 2, 655361, 4, 3, 0, 5, 3, 0, 6, 3, 0, 7, 3, 0, 8, 3, 0, 9, 3, 0, 10, 3, 0, 11, 3, 0, 12, 3, 0, 65540, 3, 1, 65543, 3, 5, 65548, 3, 655361, 4, 4, 0, 5, 4, 0, 6, 4, 0, 7, 4, 0, 8, 4, 0, 9, 4, 0, 10, 4, 0, 11, 4, 0, 12, 4, 0, 65540, 4, 1, 65548, 4, 655361, 4, 5, 0, 5, 5, 0, 6, 5, 0, 7, 5, 0, 8, 5, 0, 9, 5, 0, 10, 5, 0, 11, 5, 0, 12, 5, 0, 65540, 5, 1, 65541, 5, 3, 65546, 5, 1441795, 65548, 5, 655361, 4, 6, 0, 5, 6, 0, 6, 6, 0, 7, 6, 0, 8, 6, 0, 9, 6, 0, 10, 6, 0, 11, 6, 0, 12, 6, 0, 65540, 6, 1, 65541, 6, 1441794, 65542, 6, 655362, 65543, 6, 1048578, 65544, 6, 1048578, 65548, 6, 655361, 4, 7, 0, 5, 7, 0, 6, 7, 0, 7, 7, 0, 8, 7, 0, 9, 7, 0, 10, 7, 0, 11, 7, 0, 12, 7, 0, 65540, 7, 1, 65542, 7, 655362, 65544, 7, 1048577, 65546, 7, 1048580, 65548, 7, 655361, 4, 8, 0, 5, 8, 0, 6, 8, 0, 7, 8, 0, 8, 8, 0, 9, 8, 0, 10, 8, 0, 11, 8, 0, 12, 8, 0, 65540, 8, 1, 65542, 8, 1441796, 65544, 8, 1048577, 65548, 8, 655361, 4, 9, 0, 5, 9, 0, 6, 9, 0, 7, 9, 0, 8, 9, 0, 9, 9, 0, 10, 9, 0, 11, 9, 0, 12, 9, 0, 65540, 9, 1, 65541, 9, 1, 65542, 9, 1, 65543, 9, 1, 65544, 9, 1, 65545, 9, 1, 65546, 9, 1, 65547, 9, 1, 65548, 9, 1 )
+}
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 0, 1, 0 )
+}
+map_scene = ExtResource( 8 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 50, 50 )
+fov = 40.0
+script = ExtResource( 2 )
+
+[node name="Lift" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1, 2 )
+
+[node name="MainLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.34202, 0.939693, 0, -0.939693, 0.34202, 0, 13, 0 )
+light_color = Color( 0.733333, 0.729412, 0.627451, 1 )
