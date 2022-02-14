@@ -5,21 +5,6 @@ export var speed = 10.0
 export var acceleration = 1.0
 export var piss_duration = 15.0
 
-class PlayerInput:
-	var move = Vector2()
-	var jump_hold = false
-	var jump_now = false
-	var use_hold = false
-	var use_now = false
-	
-	func reset():
-		move = Vector2()
-		jump_hold = false
-		jump_now = false
-		use_hold = false
-		use_now = false
-	
-var input: PlayerInput = null
 var velocity = Vector3()
 var direction = Vector3()
 var model: MeshInstance
@@ -30,18 +15,14 @@ var level: Spatial
 var piss_time = 0.0
 var is_draining = false
 var is_enabled = true
+var move_input = Vector3()
 
 
 enum PlayerState { Init, Ready, Finished, Dead }
 var state = PlayerState.Init
 
-var key_mappings = [
-	[KEY_LEFT, KEY_RIGHT, KEY_UP, KEY_DOWN, KEY_SPACE],
-	[KEY_A, KEY_D, KEY_W, KEY_S, KEY_F]
-]
 
 func _ready():
-	input = PlayerInput.new()
 	model = find_node("Model")
 	material = model.material_override as ShaderMaterial
 	
@@ -53,8 +34,8 @@ func register_player(index: int, _level) -> void:
 	
 	
 func reset():
-	input.reset()
 	piss_time = 0.0
+	move_input = Vector3()
 	
 	
 func set_enabled(value: bool) -> void:
@@ -95,29 +76,11 @@ func process_piss(delta: float) -> void:
 	
 		
 func process_input() -> void:
-	input.move.x = 0.0
-	input.move.y = 0.0
-	var want_use = false
-	var want_jump = false
-	var mapping = key_mappings[player_index] if player_index >= 0 and player_index < key_mappings.size() else null
-	if mapping:
-		if Input.is_key_pressed(mapping[0]):
-			input.move.x -= 1.0
-		if Input.is_key_pressed(mapping[1]):
-			input.move.x += 1.0
-		if Input.is_key_pressed(mapping[2]):
-			input.move.y += 1.0
-		if Input.is_key_pressed(mapping[3]):
-			input.move.y -= 1.0
-		if input.move.length_squared() > 1.0:
-			input.move = input.move.normalized()		
-		want_use = Input.is_key_pressed(mapping[4])
-	
-	input.jump_now = want_jump and not input.jump_hold
-	input.jump_hold = want_jump
-	input.use_now = want_use and not input.use_hold
-	input.use_hold = want_use
-	
+	var input = Inputs.get_player_input(player_index)
+	var cam = get_viewport().get_camera()
+	var cam_right = cam.global_transform.basis.x
+	var cam_forward = cam_right.cross(Vector3.UP)
+	move_input = cam_right * input.move.x - cam_forward * input.move.y
 	if input.use_now:
 		if carriable != null:
 			if carriable.is_carriable:
@@ -128,10 +91,7 @@ func process_input() -> void:
 
 
 func _physics_process(delta):
-	var wish_vel = Vector3()
-	wish_vel.x = input.move.x
-	wish_vel.z = -input.move.y
-	wish_vel *= speed
+	var wish_vel = move_input * speed
 	if wish_vel.length_squared() > speed:
 		wish_vel = wish_vel.normalized() * speed
 		

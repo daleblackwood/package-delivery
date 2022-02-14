@@ -3,36 +3,28 @@ extends Node
 export(PackedScene) var next_scene
 
 var space_pressed = true
-var player_count_label: Label
-var player_action_label: Label
 
+var button_1p: Button
+var button_2p: Button
 
 func _ready() -> void:
-	player_count_label = find_node("PlayerCountLabel")
-	player_action_label = find_node("PlayerActionLabel")
-	update_text()
+	var buttons = find_node("Buttons")
+	button_1p = buttons.find_node("Button1P")
+	button_1p.connect("pressed", self, "start_1P")
+	button_2p = buttons.find_node("Button2P")
+	button_2p.connect("pressed", self, "start_2P")
 	
-	
-func update_text() -> void:
-	player_count_label.text = "%d Player Mode" % Game.player_count
-	if Game.player_count == 2:
-		player_action_label.text = "Press 1 for One Player Mode"
-	else:
-		player_action_label.text = "Press 2 for Two Player Mode"
 		
+func start_1P() -> void:
+	Game.player_count = 1
+	_start()
 
 
-func _process(delta):
-	if Input.is_key_pressed(KEY_1) and Game.player_count != 1:
-		Game.player_count = 1
-		update_text()
-	elif Input.is_key_pressed(KEY_2) and Game.player_count != 2:
-		Game.player_count = 2
-		update_text()	
-	
-	var was_space_pressed = space_pressed
-	space_pressed = Input.is_key_pressed(KEY_SPACE)
-	if space_pressed and not was_space_pressed:
-		var scene_instance = next_scene.instance()
-		get_tree().change_scene(next_scene.resource_path)
+func start_2P() -> void:
+	Game.player_count = 2
+	_start()
 
+
+func _start() -> void:
+	var scene_instance = next_scene.instance()
+	get_tree().change_scene(next_scene.resource_path)

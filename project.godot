@@ -57,13 +57,14 @@ _global_script_class_icons={
 [application]
 
 config/name="Cook1TowerGD"
-run/main_scene="res://UI/TitleScreen.tscn"
+run/main_scene="res://UI/ScreenTitle.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Game="*res://Game/Game.tscn"
 GameUI="*res://UI/GameUI.tscn"
+Inputs="*res://Game/Inputs.gd"
 
 [debug]
 
