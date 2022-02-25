@@ -103,7 +103,8 @@ func pick_next_spawn() -> PackedScene:
 				next_spawn = scenes[i]
 				break
 	else:
-		next_spawn = scenes[next_spawn_index & scene_count]
+		var spwn_index = next_spawn_index % scene_count
+		next_spawn = scenes[spwn_index]
 		next_spawn_index += 1
 		if next_spawn_index >= scene_count:
 			next_spawn_index = 0

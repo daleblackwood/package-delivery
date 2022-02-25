@@ -1,13 +1,23 @@
 extends Node
 
 export(PackedScene) var next_scene
+export(bool) var allow_press = true
+export(float, 0.0, 10.0) var duration = 0.0
 
-var space_pressed = true
+var is_pressed = true
+var time_left = 0.0
 
+func _ready():
+	time_left = duration
 
 func _process(delta):
-	var was_space_pressed = space_pressed
-	space_pressed = Inputs.is_any_use()
-	if space_pressed and not was_space_pressed:
-		var scene_instance = next_scene.instance()
-		get_tree().change_scene(next_scene.resource_path)
+	if allow_press:
+		var was_pressed = is_pressed
+		is_pressed = Inputs.is_any_use()
+		if is_pressed and not was_pressed:
+			Game.load_scene(next_scene.resource_path)
+	if duration > 0.0:
+		time_left -= delta
+		if time_left <= 0.0:
+			Game.load_scene(next_scene.resource_path)
+			

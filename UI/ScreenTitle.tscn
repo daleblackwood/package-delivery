@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://UI/FontSmall.tres" type="DynamicFont" id=1]
 [ext_resource path="res://UI/TitleScreen.gd" type="Script" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://UI/InputGroup.gd" type="Script" id=4]
 [ext_resource path="res://UI/UITheme.tres" type="Theme" id=5]
 [ext_resource path="res://Levels/Tutorial.tscn" type="PackedScene" id=6]
+[ext_resource path="res://UI/ButtonScene.gd" type="Script" id=7]
+[ext_resource path="res://UI/ButtonLink.gd" type="Script" id=8]
+[ext_resource path="res://UI/CompletelyCookedLogo.png" type="Texture" id=9]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.854902, 0.854902, 0.854902, 1 )
@@ -13,6 +16,8 @@ bg_color = Color( 0.854902, 0.854902, 0.854902, 1 )
 [node name="TitleScreen" type="Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = ExtResource( 5 )
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 2 )
@@ -25,12 +30,12 @@ next_scene = ExtResource( 6 )
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_top = -224.0
-margin_bottom = -178.0
+margin_top = 29.0
+margin_bottom = 75.0
 rect_pivot_offset = Vector2( 512, 46 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 1 )
-text = "Completly Cooked Games presents..."
+text = "...a completely cooked game."
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -40,15 +45,15 @@ __meta__ = {
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_top = -154.0
-margin_bottom = 54.0
+margin_top = -171.0
+margin_bottom = 23.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TextureRect" type="TextureRect" parent="Logo"]
 margin_right = 1024.0
-margin_bottom = 208.0
+margin_bottom = 194.0
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 6
@@ -70,13 +75,51 @@ __meta__ = {
 }
 
 [node name="Button1P" type="Button" parent="Buttons"]
-margin_left = 254.0
-margin_right = 506.0
-margin_bottom = 66.0
+margin_left = 101.0
+margin_right = 300.0
+margin_bottom = 54.0
 text = "One Player"
 
 [node name="Button2P" type="Button" parent="Buttons"]
-margin_left = 516.0
-margin_right = 769.0
-margin_bottom = 66.0
+margin_left = 310.0
+margin_right = 509.0
+margin_bottom = 54.0
 text = "Two Player"
+
+[node name="ButtonSettings" type="Button" parent="Buttons"]
+margin_left = 519.0
+margin_right = 682.0
+margin_bottom = 54.0
+text = "Controls"
+script = ExtResource( 7 )
+scene_path = "res://UI/ScreenSettings.tscn"
+
+[node name="ButtonLink" type="Button" parent="Buttons"]
+margin_left = 692.0
+margin_right = 808.0
+margin_bottom = 54.0
+text = "More"
+script = ExtResource( 8 )
+link = "https://daleblackwood.com/"
+
+[node name="ButtonQuit" type="Button" parent="Buttons"]
+margin_left = 818.0
+margin_right = 922.0
+margin_bottom = 54.0
+text = "Quit"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -490.0
+margin_top = -283.0
+margin_right = -356.0
+margin_bottom = -175.0
+texture = ExtResource( 9 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}

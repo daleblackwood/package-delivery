@@ -22,8 +22,8 @@ class PlayerInput:
 var DUMMY_INPUT = PlayerInput.new()
 
 var KEY_MAPPINGS = [
-	[KEY_LEFT, KEY_RIGHT, KEY_UP, KEY_DOWN, KEY_SPACE],
-	[KEY_A, KEY_D, KEY_W, KEY_S, KEY_F]
+	[KEY_LEFT, KEY_RIGHT, KEY_UP, KEY_DOWN, KEY_SPACE, KEY_SHIFT],
+	[KEY_A, KEY_D, KEY_W, KEY_S, KEY_F, KEY_E]
 ]
 
 var inputs = []
@@ -64,15 +64,16 @@ func process_input(input: PlayerInput, player_index: int) -> void:
 			input.move.y -= 1.0
 		if input.move.length_squared() > 1.0:
 			input.move = input.move.normalized()		
-		want_use = Input.is_key_pressed(mapping[4])
+		if Input.is_key_pressed(mapping[4]) or Input.is_key_pressed(mapping[5]):
+			want_use = true
 		
 	if player_index < joysticks.size():
 		var jid = joysticks[player_index]
 		input.move.x += Input.get_joy_axis(jid, 0)
 		input.move.y -= Input.get_joy_axis(jid, 1)
-		if Input.is_joy_button_pressed(jid, 0) or Input.is_joy_button_pressed(jid, 2):
+		if Input.is_joy_button_pressed(jid, 0) or Input.is_joy_button_pressed(jid, 1):
 			want_use = true
-		if Input.is_joy_button_pressed(jid, 1) or Input.is_joy_button_pressed(jid, 3):
+		if Input.is_joy_button_pressed(jid, 2) or Input.is_joy_button_pressed(jid, 3):
 			want_jump = true
 	
 	input.jump_now = want_jump and not input.jump_hold

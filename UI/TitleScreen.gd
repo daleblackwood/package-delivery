@@ -4,15 +4,19 @@ export(PackedScene) var next_scene
 
 var space_pressed = true
 
-var button_1p: Button
-var button_2p: Button
-
 func _ready() -> void:
 	var buttons = find_node("Buttons")
-	button_1p = buttons.find_node("Button1P")
-	button_1p.connect("pressed", self, "start_1P")
-	button_2p = buttons.find_node("Button2P")
-	button_2p.connect("pressed", self, "start_2P")
+	connect_button(buttons, "Button1P", "start_1P")
+	connect_button(buttons, "Button2P", "start_2P")
+	connect_button(buttons, "ButtonQuit", "quit")
+	
+	
+func connect_button(group: InputGroup, button_name: String, func_name: String) -> void:
+	var button = group.get_button(button_name)
+	if button == null:
+		printerr("Can't find button '%s'" % button_name)
+		return
+	button.connect("pressed", self, func_name)
 	
 		
 func start_1P() -> void:
@@ -26,5 +30,9 @@ func start_2P() -> void:
 
 
 func _start() -> void:
-	var scene_instance = next_scene.instance()
-	get_tree().change_scene(next_scene.resource_path)
+	Game.load_scene(next_scene.resource_path)
+	
+
+func quit() -> void:
+	OS.window_fullscreen = false
+	get_tree().quit(0)

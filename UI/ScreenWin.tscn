@@ -87,7 +87,7 @@ __meta__ = {
 }
 
 [node name="Button1P" type="Button" parent="Buttons"]
-margin_left = 404.0
-margin_right = 619.0
+margin_left = 426.0
+margin_right = 597.0
 margin_bottom = 66.0
 text = "Continue"

@@ -1,14 +1,19 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://UI/GameUI.gd" type="Script" id=1]
 [ext_resource path="res://UI/UIMessage.gd" type="Script" id=2]
 [ext_resource path="res://UI/UITheme.tres" type="Theme" id=3]
 [ext_resource path="res://UI/FontTitle.tres" type="DynamicFont" id=4]
+[ext_resource path="res://UI/AmazinLogo.png" type="Texture" id=5]
+[ext_resource path="res://UI/UIFloat.gd" type="Script" id=6]
 
-[node name="GameUI" type="Control"]
+[node name="GameUI" type="ViewportContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = ExtResource( 3 )
+stretch = true
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -25,16 +30,69 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="Label" parent="Message"]
+[node name="Control" type="Control" parent="Message"]
 margin_right = 1024.0
-margin_bottom = 68.0
+
+[node name="ColorRect" type="ColorRect" parent="Message/Control"]
+margin_left = -744.0
+margin_top = -10.0
+margin_right = 1725.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 0, 100 )
+color = Color( 0.0745098, 0.0627451, 0.25098, 0.376471 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Message"]
+margin_top = -6.0
+margin_right = 1024.0
+margin_bottom = 51.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_y = 2
 custom_fonts/font = ExtResource( 4 )
 text = "Title"
 align = 1
 
 [node name="Subtitle" type="Label" parent="Message"]
-margin_top = 62.0
+margin_top = 45.0
 margin_right = 1024.0
-margin_bottom = 108.0
+margin_bottom = 79.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_y = 2
 text = "Subtitle"
 align = 1
+
+[node name="Loader" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.854902, 0.854902, 0.854902, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="Loader"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Loader/Control"]
+margin_left = -106.0
+margin_top = -27.0
+margin_right = 143.0
+margin_bottom = 61.0
+texture = ExtResource( 5 )
+expand = true
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
