@@ -41,17 +41,16 @@ func register_player(player) -> void:
 	if players.has(player):
 		return
 	player.register_player(players.size(), self)
+	player.set_enabled(false)
 	players.append(player)
 	
 	
 func on_spawned(node: Spatial) -> void:
 	if node.name.begins_with("Package"):
-		print("got package " + node.name)
 		packages.append(node)
 		
 		
 func on_map_built() -> void:
-	print("build completed")
 	is_built = true
 	call_deferred("reset")
 
@@ -84,18 +83,17 @@ func _process(delta: float) -> void:
 	if state >= LevelState.Complete and state_time > 3.0:
 		if state == LevelState.Complete:
 			if next_level != null:
-				get_tree().change_scene(next_level.resource_path)
+				Game.load_scene(next_level.resource_path)
 			else:
-				get_tree().change_scene("res://UI/WinScreen.tscn")
+				Game.load_scene("res://UI/ScreenWin.tscn")
 			return
-		get_tree().change_scene("res://UI/TitleScreen.tscn")
+		Game.reload_scene()
 		
 			
 			
 func set_state(new_state: int) -> void:
 	if new_state == state:
 		return
-	print("state: %d" % new_state)
 	state = new_state
 	state_time = 0.0
 	if lift != null:

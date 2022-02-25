@@ -27,13 +27,12 @@ func build() -> void:
 	references.resize(highest_id + 1)
 	for item_id in item_ids:
 		var item_name = mesh_library.get_item_name(item_id)
-		var item = map_inst.find_node(item_name) as Spatial
+		var item = map_inst.find_node(item_name) as SpawnGridMapSpawner
 		if item != null:
 			var script = item.get_script() as Script
 			if script != null:
-				var item_ref = Spatial.new()
+				var item_ref = SpawnGridMapSpawner.new()
 				item_ref.name = item.name
-				item_ref.set_script(script.duplicate())
 				for prop in item.get_property_list():
 					if (prop.usage & PROPERTY_USAGE_SCRIPT_VARIABLE) != 0 and (prop.usage & PROPERTY_USAGE_DEFAULT) != 0:
 						item_ref[prop.name] = item[prop.name]
@@ -48,7 +47,7 @@ func build() -> void:
 			continue
 		var orientation = get_cell_item_orientation(cell.x, cell.y, cell.z)
 		var basis = orthoganal_to_basis(orientation)
-		var item_inst = item_ref.duplicate() as Spatial
+		var item_inst = item_ref.duplicate()
 		item_inst.name = "%s_%d_%d_%d" % [item_ref.name, cell.x, cell.y, cell.z]
 		set_cell_item(cell.x, cell.y, cell.z, INVALID_CELL_ITEM)
 		call_deferred("add_item", item_inst, cell, basis)

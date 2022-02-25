@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Props/PissArea/Piss.material" type="Material" id=1]
-
-[sub_resource type="SphereMesh" id=1]
-height = 0.3
+[ext_resource path="res://Props/PissArea/Piss.gd" type="Script" id=2]
+[ext_resource path="res://Props/PissArea/piss.obj" type="ArrayMesh" id=3]
 
 [node name="Piss" type="MeshInstance"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 4 )
-mesh = SubResource( 1 )
+mesh = ExtResource( 3 )
 material/0 = ExtResource( 1 )
+script = ExtResource( 2 )

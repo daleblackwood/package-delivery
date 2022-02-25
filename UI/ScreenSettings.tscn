@@ -1,0 +1,79 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://UI/InputGroup.gd" type="Script" id=2]
+[ext_resource path="res://UI/controller.png" type="Texture" id=3]
+[ext_resource path="res://UI/FontBody.tres" type="DynamicFont" id=4]
+[ext_resource path="res://UI/ButtonScene.gd" type="Script" id=5]
+[ext_resource path="res://UI/UITheme.tres" type="Theme" id=6]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.854902, 0.854902, 0.854902, 1 )
+
+[node name="TitleScreen" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 6 )
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerActionLabel2" type="Label" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -224.0
+margin_bottom = -178.0
+rect_pivot_offset = Vector2( 512, 46 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 4 )
+text = "Controller Mapping"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Logo" type="MarginContainer" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 50.0
+margin_top = -134.0
+margin_right = -50.0
+margin_bottom = 99.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Logo"]
+margin_right = 924.0
+margin_bottom = 233.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buttons" type="HBoxContainer" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = 146.0
+margin_bottom = 212.0
+custom_constants/separation = 10
+alignment = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonSettings" type="Button" parent="Buttons"]
+margin_left = 442.0
+margin_right = 582.0
+margin_bottom = 66.0
+text = "Done"
+script = ExtResource( 5 )
+scene_path = "res://UI/ScreenTitle.tscn"

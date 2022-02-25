@@ -2,10 +2,13 @@ extends Area
 
 var drainers = []
 var pissed = false
+var feet: Spatial
+
 
 func _ready():
 	connect("body_entered", self, "on_body_enter")
 	connect("body_exited", self, "on_body_exit")
+	feet = find_node("Feet")
 	
 	
 func _process(delta):
@@ -26,6 +29,7 @@ func on_body_enter(body: Node) -> void:
 		return
 	drainers.append(body)
 	pissed = true
+	visible = false
 	Game.level.instance("Piss", global_transform.origin)
 	
 	
