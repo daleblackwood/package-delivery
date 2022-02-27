@@ -8,7 +8,7 @@ export var piss_duration = 15.0
 var velocity = Vector3()
 var direction = Vector3()
 var model: MeshInstance
-var material: ShaderMaterial
+var piss_mats = []
 var carriable: Carriable = null
 var player_index = 0
 var level: Spatial
@@ -24,7 +24,17 @@ var state = PlayerState.Init
 
 func _ready():
 	model = find_node("Model")
-	material = model.material_override as ShaderMaterial
+	piss_mats = collect_piss_materials(self)
+	
+	
+func collect_piss_materials(parent: Node, materials: Array = []) -> Array:
+	if parent is MeshInstance:
+		var material = (parent as MeshInstance).material_override as ShaderMaterial
+		if material != null and material.shader != null:
+			materials.append(material)
+	for i in range(parent.get_child_count()):
+		collect_piss_materials(parent.get_child(i), materials)
+	return materials
 	
 	
 func register_player(index: int, _level) -> void:
@@ -63,16 +73,23 @@ func process_piss(delta: float) -> void:
 	else:
 		piss_time += delta
 	var pissv = clamp(piss_time / piss_duration, 0.0, 1.0)
-	material.set_shader_param("piss", pissv)
+	for piss_mat in piss_mats:
+		piss_mat.set_shader_param("piss", pissv)
 	if piss_time >= piss_duration:
-		print("pissed")
-		state = PlayerState.Dead
+		die_piss()
 	var shake = pissv * 0.05
 	model.transform.origin = Vector3(
 		rand_range(-shake, shake),
 		rand_range(-shake, shake),
 		rand_range(-shake, shake)
 	)
+	
+	
+func die_piss() -> void:
+	Game.level.instance("Piss", global_transform.origin)
+	print("pissed")
+	state = PlayerState.Dead
+	carriable_drop()
 	
 		
 func process_input() -> void:
@@ -83,12 +100,27 @@ func process_input() -> void:
 	move_input = cam_right * input.move.x - cam_forward * input.move.y
 	if input.use_now:
 		if carriable != null:
-			if carriable.is_carriable:
-				carriable.carry(self)
+			if carriable.carrier != self:
+				carriable_carry()
 			else:
-				carriable.drop(global_transform.origin + direction * 2.0)
-				carriable = null
+				carriable_drop()
 
+	
+func carriable_carry() -> void:
+	if carriable == null:
+		return
+	if carriable.carrier == self:
+		return
+	carriable.carry(self)
+	
+	
+func carriable_drop() -> void:
+	if carriable == null:
+		return
+	if carriable.carrier != self:
+		return
+	carriable.drop(global_transform.origin + direction * 2.0)
+	
 
 func _physics_process(delta):
 	var wish_vel = move_input * speed
@@ -114,7 +146,7 @@ func _physics_process(delta):
 	
 	
 func set_carriable(obj: Carriable) -> void:
-	if carriable == null or carriable.carrier != self:
+	if carriable == null:
 		carriable = obj
 		
 		

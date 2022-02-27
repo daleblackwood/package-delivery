@@ -8,11 +8,14 @@ class PlayerInput:
 	var use_hold = false
 	var use_now = false
 	
+	func _init():
+		reset()
+	
 	func reset():
 		move = Vector2()
-		jump_hold = false
+		jump_hold = true
 		jump_now = false
-		use_hold = false
+		use_hold = true
 		use_now = false
 		
 	func is_any_action_now() -> bool:
@@ -21,20 +24,16 @@ class PlayerInput:
 
 var DUMMY_INPUT = PlayerInput.new()
 
-var KEY_MAPPINGS = [
+const KEY_MAPPINGS = [
 	[KEY_LEFT, KEY_RIGHT, KEY_UP, KEY_DOWN, KEY_SPACE, KEY_SHIFT],
 	[KEY_A, KEY_D, KEY_W, KEY_S, KEY_F, KEY_E]
 ]
 
+const USE_BUTTONS = [0, 1]
+
 var inputs = []
 var joysticks = []
-
-func _ready():
-	reset_joysticks()
-	
-	
-func reset_joysticks():
-	joysticks = Input.get_connected_joypads()
+var is_discovering = false
 
 
 func _process(delta: float) -> void:
@@ -45,6 +44,23 @@ func _process(delta: float) -> void:
 	for i in range(inputs.size()):
 		process_input(inputs[i], i)
 	
+	if is_discovering:
+		var jids = Input.get_connected_joypads()
+		for jid in jids:
+			if joysticks.has(jid):
+				continue
+			for btn in USE_BUTTONS:
+				if Input.is_joy_button_pressed(jid, btn):
+					joysticks.append(jid)
+					for i in range(inputs.size()):
+						inputs[i].reset()
+			
+		
+		
+func set_discovery(on: bool) -> void:
+	is_discovering = on
+	if on:
+		joysticks = []
 
 		
 func process_input(input: PlayerInput, player_index: int) -> void:
@@ -71,10 +87,9 @@ func process_input(input: PlayerInput, player_index: int) -> void:
 		var jid = joysticks[player_index]
 		input.move.x += Input.get_joy_axis(jid, 0)
 		input.move.y -= Input.get_joy_axis(jid, 1)
-		if Input.is_joy_button_pressed(jid, 0) or Input.is_joy_button_pressed(jid, 1):
-			want_use = true
-		if Input.is_joy_button_pressed(jid, 2) or Input.is_joy_button_pressed(jid, 3):
-			want_jump = true
+		for btn in USE_BUTTONS:
+			if Input.is_joy_button_pressed(jid, btn):
+				want_use = true
 	
 	input.jump_now = want_jump and not input.jump_hold
 	input.jump_hold = want_jump

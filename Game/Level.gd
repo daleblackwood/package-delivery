@@ -2,7 +2,6 @@ extends Spatial
 class_name Level
 
 export(Array, PackedScene) var prefabs = []
-export(PackedScene) var next_level
 
 var players = []
 var packages = []
@@ -10,11 +9,12 @@ var lift: Lift
 var main_light: DirectionalLight
 var main_light_color: Color
 
-enum LevelState { PreInit, Init, Ready, Playing, LiftOpen, Complete, Failed }
+enum LevelState { PreInit, Init, Ready, Playing, LiftOpen, Complete, Failed, Exited }
 var state = LevelState.PreInit
 var packages_left = 0
 var is_built = false
 var state_time = 0.0
+var finish_player_index = -1
 
 
 func _ready() -> void:
@@ -76,18 +76,20 @@ func _process(delta: float) -> void:
 				live_player_count += 1
 			if player.state == Player.PlayerState.Finished:
 				finished_player_count += 1
+				finish_player_index = player.player_index
+				Game.score_inc(finish_player_index, 1)
 		if live_player_count == 0:
 			set_state(LevelState.Failed)
 		if finished_player_count > 0:
 			set_state(LevelState.Complete)
 	if state >= LevelState.Complete and state_time > 3.0:
-		if state == LevelState.Complete:
-			if next_level != null:
-				Game.load_scene(next_level.resource_path)
-			else:
-				Game.load_scene("res://UI/ScreenWin.tscn")
-			return
-		Game.reload_scene()
+		var prev_state = state
+		state = LevelState.Exited
+		set_process(false)
+		if prev_state == LevelState.Complete:
+			Game.load_next_level()
+		else:
+			Game.reload_scene()
 		
 			
 			
@@ -106,7 +108,10 @@ func set_state(new_state: int) -> void:
 		light_color = Color.yellow
 		GameUI.message.display("Failed!", "You peed yourself.")
 	elif state == LevelState.Complete:
-		GameUI.message.display("Stage Complete!", "You have great package!")
+		var msg = "You have great package!"
+		if Game.player_count > 1:
+			msg = "Player %d gets the promotion!" % (finish_player_index + 1)
+		GameUI.message.display("Stage Complete!", msg)
 		light_color = Color.white
 	elif state >= LevelState.LiftOpen:
 		GameUI.message.display("Lift Open!", "Get outta here!")
@@ -117,20 +122,12 @@ func set_state(new_state: int) -> void:
 		player.set_enabled(enable_players)
 		
 		
-func instance(name: String, position: Vector3) -> Spatial:
-	var prefab = get_prefab(name)
+func instance(prefab_name: String, position: Vector3) -> Spatial:
+	var prefab = Game.get_prefab(prefab_name)
+	if prefab == null:
+		printerr("Can't instance %s" % prefab_name)
+		return null
 	var instance = prefab.instance() as Spatial
 	add_child(instance)
 	instance.transform.origin = position
 	return instance
-	
-		
-func get_prefab(name: String) -> PackedScene:
-	name = name.to_lower()
-	for prefab in prefabs:
-		var path = prefab.resource_path as String
-		if path == null or path.length() < 1:
-			continue
-		if path.to_lower().ends_with("/" + name + ".tscn"):
-			return prefab
-	return null

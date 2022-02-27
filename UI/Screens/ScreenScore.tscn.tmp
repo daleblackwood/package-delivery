@@ -1,0 +1,91 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://UI/InputGroup.gd" type="Script" id=1]
+[ext_resource path="res://UI/ScoreScreen.gd" type="Script" id=2]
+[ext_resource path="res://UI/UITheme.tres" type="Theme" id=3]
+[ext_resource path="res://UI/AmazinLogo.png" type="Texture" id=4]
+[ext_resource path="res://UI/FontTitle.tres" type="DynamicFont" id=5]
+[ext_resource path="res://UI/FontBody.tres" type="DynamicFont" id=6]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.854902, 0.854902, 0.854902, 1 )
+
+[node name="WinScreen" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 3 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Logo" type="MarginContainer" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -175.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Logo"]
+margin_right = 1024.0
+margin_bottom = 175.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelTitle" type="Label" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -5.0
+margin_top = 32.0
+margin_right = -5.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 529, 23 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "First line!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelComment" type="Label" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = 83.0
+margin_bottom = 129.0
+rect_pivot_offset = Vector2( 469, 0 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 6 )
+text = "Second Line!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buttons" type="HBoxContainer" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = 145.0
+margin_bottom = 211.0
+custom_constants/separation = 10
+alignment = 1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button1P" type="Button" parent="Buttons"]
+margin_left = 426.0
+margin_right = 597.0
+margin_bottom = 66.0
+text = "Continue"

@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Props/Carriable.gd"
 }, {
+"base": "Control",
+"class": "ContinueScreen",
+"language": "GDScript",
+"path": "res://UI/ContinueScreen.gd"
+}, {
 "base": "Node",
 "class": "InputGroup",
 "language": "GDScript",
@@ -34,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Characters/Player.gd"
 }, {
+"base": "Reference",
+"class": "SceneTypes",
+"language": "GDScript",
+"path": "res://Game/SceneTypes.gd"
+}, {
 "base": "GridMap",
 "class": "SpawnGridMap",
 "language": "GDScript",
@@ -51,10 +61,12 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Carriable": "",
+"ContinueScreen": "",
 "InputGroup": "",
 "Level": "",
 "Lift": "",
 "Player": "",
+"SceneTypes": "",
 "SpawnGridMap": "",
 "SpawnGridMapSpawner": "",
 "UIMessage": ""
@@ -64,7 +76,7 @@ _global_script_class_icons={
 
 config/name="Amazing Package Delivery"
 config/description="Battle against your own bladder to become the ultimate package delivery expert."
-run/main_scene="res://UI/ScreenSplash.tscn"
+run/main_scene="res://UI/Screens/ScreenSplash.tscn"
 boot_splash/image="res://splash.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0.854902, 0.854902, 0.854902, 1 )

@@ -7,6 +7,7 @@ var radius = 0.0
 func _ready():
 	radius = 0.0
 	rotate_y(randf() * PI * 2.0)
+	global_transform.basis = Basis().scaled(Vector3.ONE * 0.01)
 	
 	
 func _process(delta: float) -> void:

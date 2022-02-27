@@ -9,5 +9,6 @@ func _ready():
 	loader.visible = false
 	
 	
-func show_loader(on: bool) -> void:
+func show_loader(on: bool, title: String = "") -> void:
 	loader.visible = on
+	loader.get_child(0).get_child(0).get_child(0).text = title

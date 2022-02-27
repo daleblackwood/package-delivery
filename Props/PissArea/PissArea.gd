@@ -13,7 +13,14 @@ func _ready():
 	
 func _process(delta):
 	for drainer in drainers:
+		if not drainer.can_piss():
+			continue
+		pissed = true
+		visible = false
+		Game.level.instance("Piss", global_transform.origin)
 		drainer.drain_piss()
+		set_process(false)
+		return
 		
 	
 func on_body_enter(body: Node) -> void:
@@ -25,12 +32,7 @@ func on_body_enter(body: Node) -> void:
 		return
 	if not body.has_method("can_piss"):
 		return
-	if not body.can_piss():
-		return
 	drainers.append(body)
-	pissed = true
-	visible = false
-	Game.level.instance("Piss", global_transform.origin)
 	
 	
 func on_body_exit(body: Node) -> void:

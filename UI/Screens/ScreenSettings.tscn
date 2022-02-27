@@ -71,9 +71,8 @@ __meta__ = {
 }
 
 [node name="ButtonSettings" type="Button" parent="Buttons"]
-margin_left = 442.0
-margin_right = 582.0
+margin_left = 454.0
+margin_right = 570.0
 margin_bottom = 66.0
 text = "Done"
 script = ExtResource( 5 )
-scene_path = "res://UI/ScreenTitle.tscn"

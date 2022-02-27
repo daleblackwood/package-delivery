@@ -64,7 +64,6 @@ text = "Subtitle"
 align = 1
 
 [node name="Loader" type="ColorRect" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.854902, 0.854902, 0.854902, 1 )
@@ -93,6 +92,18 @@ margin_bottom = 61.0
 texture = ExtResource( 5 )
 expand = true
 script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Loader/Control/TextureRect"]
+margin_left = -79.0
+margin_top = 99.0
+margin_right = 321.0
+margin_bottom = 133.0
+custom_colors/font_color = Color( 0.0823529, 0.0823529, 0.313726, 1 )
+text = "Level 1"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

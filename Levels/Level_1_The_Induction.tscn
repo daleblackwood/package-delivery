@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://addons/SpawnGridMap/SpawnGridMap.gd" type="Script" id=1]
 [ext_resource path="res://Camera/StageCam.gd" type="Script" id=2]
@@ -7,12 +7,10 @@
 [ext_resource path="res://Props/PissArea/Piss.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Props/Lift/Lift.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Blocks/BlocksTiles.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Levels/Level1.tscn" type="PackedScene" id=9]
 
 [node name="Level" type="Spatial"]
 script = ExtResource( 3 )
 prefabs = [ ExtResource( 5 ) ]
-next_level = ExtResource( 9 )
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource( 4 )

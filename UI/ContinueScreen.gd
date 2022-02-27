@@ -1,6 +1,7 @@
-extends Node
+extends Control
+class_name ContinueScreen
 
-export(PackedScene) var next_scene
+export(SceneTypes.SceneType) var next_scene = 0
 export(bool) var allow_press = true
 export(float, 0.0, 10.0) var duration = 0.0
 
@@ -15,9 +16,14 @@ func _process(delta):
 		var was_pressed = is_pressed
 		is_pressed = Inputs.is_any_use()
 		if is_pressed and not was_pressed:
-			Game.load_scene(next_scene.resource_path)
+			load_scene()
 	if duration > 0.0:
 		time_left -= delta
 		if time_left <= 0.0:
-			Game.load_scene(next_scene.resource_path)
+			load_scene()
+			
+
+func load_scene():
+	set_process(false)
+	Game.load_scene(next_scene)
 			

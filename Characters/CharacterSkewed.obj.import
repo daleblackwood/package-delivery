@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/CharacterSkewed.obj-62d5a6f68c25c15a4f0a74e26ddc6059.mesh"
+
+[deps]
+
+files=[ "res://.import/CharacterSkewed.obj-62d5a6f68c25c15a4f0a74e26ddc6059.mesh" ]
+
+source_file="res://Characters/CharacterSkewed.obj"
+dest_files=[ "res://.import/CharacterSkewed.obj-62d5a6f68c25c15a4f0a74e26ddc6059.mesh", "res://.import/CharacterSkewed.obj-62d5a6f68c25c15a4f0a74e26ddc6059.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

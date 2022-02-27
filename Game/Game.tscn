@@ -1,10 +1,25 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Game/Game.gd" type="Script" id=1]
 [ext_resource path="res://Characters/PlayerWorker.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Characters/PlayerCEO.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Levels/Level_1_The_Induction.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Levels/Level_2_The_Belts.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Props/PissArea/Piss.tscn" type="PackedScene" id=6]
+[ext_resource path="res://UI/Screens/ScreenScore.tscn" type="PackedScene" id=7]
+[ext_resource path="res://UI/Screens/ScreenMenu.tscn" type="PackedScene" id=8]
+[ext_resource path="res://UI/Screens/ScreenSettings.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Levels/Level_5_The_Herring.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Levels/Level_6_The_Labyrinth.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Levels/Level_3_The_Split.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Levels/Level_4_The_Gap.tscn" type="PackedScene" id=13]
 
 [node name="Game" type="Node"]
 script = ExtResource( 1 )
 player_count = 1
-player_prefabs = [ ExtResource( 3 ), ExtResource( 2 ) ]
+player_prefabs = [ ExtResource( 2 ), ExtResource( 3 ) ]
+prefabs = [ ExtResource( 6 ) ]
+levels = [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 10 ), ExtResource( 11 ) ]
+scene_scores = ExtResource( 7 )
+scene_menu = ExtResource( 8 )
+scene_settings = ExtResource( 9 )

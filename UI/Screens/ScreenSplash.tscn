@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://UI/UITheme.tres" type="Theme" id=1]
-[ext_resource path="res://UI/ContinueScreen.gd" type="Script" id=2]
-[ext_resource path="res://UI/CompletelyCookedLogo.png" type="Texture" id=3]
-[ext_resource path="res://UI/ScreenTitle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://UI/ContinueScreen.gd" type="Script" id=1]
+[ext_resource path="res://UI/CompletelyCookedLogo.png" type="Texture" id=2]
+[ext_resource path="res://UI/UITheme.tres" type="Theme" id=3]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.854902, 0.854902, 0.854902, 1 )
@@ -13,13 +12,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource( 1 )
+theme = ExtResource( 3 )
 custom_styles/panel = SubResource( 1 )
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-next_scene = ExtResource( 4 )
 allow_press = false
 duration = 4.0
 
@@ -32,7 +30,7 @@ margin_left = -158.5
 margin_top = -146.5
 margin_right = 158.5
 margin_bottom = 146.5
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 expand = true
 stretch_mode = 6
 __meta__ = {

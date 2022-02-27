@@ -1,21 +1,19 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://addons/SpawnGridMap/SpawnGridMap.gd" type="Script" id=1]
 [ext_resource path="res://Camera/StageCam.gd" type="Script" id=2]
-[ext_resource path="res://Game/Level.gd" type="Script" id=3]
-[ext_resource path="res://Blocks/Blocks.meshlib" type="MeshLibrary" id=4]
-[ext_resource path="res://Props/PissArea/Piss.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Props/Lift/Lift.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Blocks/Blocks.meshlib" type="MeshLibrary" id=3]
+[ext_resource path="res://Game/Level.gd" type="Script" id=4]
+[ext_resource path="res://Props/Lift/Lift.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Props/PissArea/Piss.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Blocks/BlocksTiles.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Levels/Level4.tscn" type="PackedScene" id=9]
 
 [node name="Level" type="Spatial"]
-script = ExtResource( 3 )
-prefabs = [ ExtResource( 5 ) ]
-next_level = ExtResource( 9 )
+script = ExtResource( 4 )
+prefabs = [ ExtResource( 7 ) ]
 
 [node name="GridMap" type="GridMap" parent="."]
-mesh_library = ExtResource( 4 )
+mesh_library = ExtResource( 3 )
 cell_size = Vector3( 2, 1, 2 )
 cell_center_y = false
 data = {
@@ -33,7 +31,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 50, 50 )
 fov = 40.0
 script = ExtResource( 2 )
 
-[node name="Lift" parent="." instance=ExtResource( 7 )]
+[node name="Lift" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1, 2 )
 
 [node name="MainLight" type="DirectionalLight" parent="."]
