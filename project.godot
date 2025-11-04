@@ -6,80 +6,17 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
-
-_global_script_classes=[ {
-"base": "Area",
-"class": "Carriable",
-"language": "GDScript",
-"path": "res://Props/Carriable.gd"
-}, {
-"base": "Control",
-"class": "ContinueScreen",
-"language": "GDScript",
-"path": "res://UI/ContinueScreen.gd"
-}, {
-"base": "Node",
-"class": "InputGroup",
-"language": "GDScript",
-"path": "res://UI/InputGroup.gd"
-}, {
-"base": "Spatial",
-"class": "Level",
-"language": "GDScript",
-"path": "res://Game/Level.gd"
-}, {
-"base": "StaticBody",
-"class": "Lift",
-"language": "GDScript",
-"path": "res://Props/Lift/Lift.gd"
-}, {
-"base": "KinematicBody",
-"class": "Player",
-"language": "GDScript",
-"path": "res://Characters/Player.gd"
-}, {
-"base": "Reference",
-"class": "SceneTypes",
-"language": "GDScript",
-"path": "res://Game/SceneTypes.gd"
-}, {
-"base": "GridMap",
-"class": "SpawnGridMap",
-"language": "GDScript",
-"path": "res://addons/SpawnGridMap/SpawnGridMap.gd"
-}, {
-"base": "Spatial",
-"class": "SpawnGridMapSpawner",
-"language": "GDScript",
-"path": "res://addons/SpawnGridMap/SpawnGridMapSpawner.gd"
-}, {
-"base": "Control",
-"class": "UIMessage",
-"language": "GDScript",
-"path": "res://UI/UIMessage.gd"
-} ]
-_global_script_class_icons={
-"Carriable": "",
-"ContinueScreen": "",
-"InputGroup": "",
-"Level": "",
-"Lift": "",
-"Player": "",
-"SceneTypes": "",
-"SpawnGridMap": "",
-"SpawnGridMapSpawner": "",
-"UIMessage": ""
-}
+config_version=5
 
 [application]
 
 config/name="Amazing Package Delivery"
 config/description="Battle against your own bladder to become the ultimate package delivery expert."
 run/main_scene="res://UI/Screens/ScreenSplash.tscn"
-boot_splash/image="res://splash.png"
+config/features=PackedStringArray("4.5")
+boot_splash/bg_color=Color(0.854902, 0.854902, 0.854902, 1)
 boot_splash/fullsize=false
-boot_splash/bg_color=Color( 0.854902, 0.854902, 0.854902, 1 )
+boot_splash/image="res://splash.png"
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 
@@ -95,13 +32,13 @@ settings/fps/force_fps=30
 
 [display]
 
-window/vsync/use_vsync=false
-window/stretch/mode="2d"
-window/stretch/aspect="expand"
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_height"
+window/vsync/vsync_mode=false
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/SpawnGridMap/plugin.cfg" )
+enabled=PackedStringArray("res://addons/SpawnGridMap/plugin.cfg")
 
 [physics]
 
@@ -110,4 +47,4 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-environment/default_environment="res://default_env.tres"
+environment/defaults/default_environment="res://default_env.tres"

@@ -1,30 +1,30 @@
-extends Spatial
+extends Node3D
 class_name SpawnGridMapSpawner
 
-export(Array, PackedScene) var scenes = [null]
-export(bool) var use_respawn = false
-export(float, 0.0, 10.0) var respawn_time = 5.0
-export(float) var respawn_distance = 5.0
-export(bool) var spawn_random = false
-export(int) var random_seed = 0
-export(Array, int) var scene_weights = [1]
-export(bool) var use_map_orientation = true
-export(bool) var use_map_scale = false
+@export var scenes: Array[PackedScene] = [] 
+@export var use_respawn: bool = false
+@export var respawn_time = 5.0 # (float, 0.0, 10.0)
+@export var respawn_distance: float = 5.0
+@export var spawn_random: bool = false
+@export var random_seed: int = 0
+@export var scene_weights = [1] # (Array, int)
+@export var use_map_orientation: bool = true
+@export var use_map_scale: bool = false
 
 var time_to_spawn = 0.0
-var last_spawn: Spatial = null
+var last_spawn: Node3D = null
 var next_spawn: PackedScene = null
 var next_spawn_index = 0
 var rng: RandomNumberGenerator = null
 var map: GridMap = null
 var cell = Vector3()
-var basis = Basis()
+var init_basis = Basis()
 
 
 func set_map(_map: GridMap, _cell: Vector3, _basis: Basis) -> void:
 	map = _map
 	cell = _cell
-	basis = _basis
+	init_basis = _basis
 	
 
 func _enter_tree() -> void:
@@ -56,12 +56,12 @@ func spawn() -> void:
 	if next_spawn == null:
 		printerr(name + " can't spawn null scene")
 		return
-	last_spawn = next_spawn.instance() as Spatial
+	last_spawn = next_spawn.instantiate() as Node3D
 	last_spawn.transform.origin = transform.origin
 	if map != null:
 		var spawn_basis = Basis()
 		if use_map_orientation:
-			spawn_basis = basis
+			spawn_basis = init_basis
 		if use_map_scale:
 			spawn_basis = spawn_basis.scaled(Vector3.ONE * map.cell_size)
 		last_spawn.transform.basis = spawn_basis
@@ -77,7 +77,7 @@ func spawn() -> void:
 	
 func pick_next_spawn() -> PackedScene:
 	next_spawn = null
-	var scene_count = scenes.size()
+	var scene_count := scenes.size()
 	if scene_count < 1:
 		printerr(name + " has nothing to spawn!")
 		return null

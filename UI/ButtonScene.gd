@@ -1,9 +1,9 @@
 extends Button
 
-export(SceneTypes.SceneType) var scene_type
+@export var scene_type: SceneTypes.SceneType
 
 func _ready() -> void:
-	connect("pressed", self, "_on_pressed")
+	connect("pressed", Callable(self, "_on_pressed"))
 	
 	
 func _on_pressed() -> void:

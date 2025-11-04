@@ -1,17 +1,17 @@
-extends KinematicBody
+extends CharacterBody3D
 class_name Player
 
-export var speed = 10.0
-export var acceleration = 1.0
-export var piss_duration = 15.0
+@export var speed = 10.0
+@export var acceleration = 1.0
+@export var piss_duration = 15.0
 
-var velocity = Vector3()
-var direction = Vector3()
-var model: MeshInstance
+var velocity_to := Vector3.ZERO
+var direction := Vector3.FORWARD
+var model: MeshInstance3D
 var piss_mats = []
 var carriable: Carriable = null
 var player_index = 0
-var level: Spatial
+var level: Node3D
 var piss_time = 0.0
 var is_draining = false
 var is_enabled = true
@@ -23,13 +23,13 @@ var state = PlayerState.Init
 
 
 func _ready():
-	model = find_node("Model")
+	model = find_child("Model")
 	piss_mats = collect_piss_materials(self)
 	
 	
 func collect_piss_materials(parent: Node, materials: Array = []) -> Array:
-	if parent is MeshInstance:
-		var material = (parent as MeshInstance).material_override as ShaderMaterial
+	if parent is MeshInstance3D:
+		var material = (parent as MeshInstance3D).material_override as ShaderMaterial
 		if material != null and material.shader != null:
 			materials.append(material)
 	for i in range(parent.get_child_count()):
@@ -74,14 +74,14 @@ func process_piss(delta: float) -> void:
 		piss_time += delta
 	var pissv = clamp(piss_time / piss_duration, 0.0, 1.0)
 	for piss_mat in piss_mats:
-		piss_mat.set_shader_param("piss", pissv)
+		piss_mat.set_shader_parameter("piss", pissv)
 	if piss_time >= piss_duration:
 		die_piss()
 	var shake = pissv * 0.05
 	model.transform.origin = Vector3(
-		rand_range(-shake, shake),
-		rand_range(-shake, shake),
-		rand_range(-shake, shake)
+		randf_range(-shake, shake),
+		randf_range(-shake, shake),
+		randf_range(-shake, shake)
 	)
 	
 	
@@ -94,7 +94,7 @@ func die_piss() -> void:
 		
 func process_input() -> void:
 	var input = Inputs.get_player_input(player_index)
-	var cam = get_viewport().get_camera()
+	var cam = get_viewport().get_camera_3d()
 	var cam_right = cam.global_transform.basis.x
 	var cam_forward = cam_right.cross(Vector3.UP)
 	move_input = cam_right * input.move.x - cam_forward * input.move.y
@@ -128,21 +128,24 @@ func _physics_process(delta):
 		wish_vel = wish_vel.normalized() * speed
 		
 	var max_add = acceleration * delta * 50.0
-	var vel_add = wish_vel - velocity
+	var vel_add = wish_vel - velocity_to
 	if vel_add.length_squared() > max_add:
 		vel_add = vel_add.normalized() * max_add
 		
-	velocity += vel_add
-	var velsq = velocity.length_squared()
+	velocity_to += vel_add
+	var velsq = velocity_to.length_squared()
 	if velsq > 0.1:
-		direction = velocity
+		direction = velocity_to
 		direction.y = 0
-		direction = velocity.normalized()
+		direction = velocity_to.normalized()
 	if velsq > 0.0:
-		move_and_slide(velocity, Vector3.UP)
+		set_velocity(velocity_to)
+		set_up_direction(Vector3.UP)
+		move_and_slide()
 	
-	var look_dir = lerp(model.global_transform.basis.z, direction, 0.5)
-	model.look_at(model.global_transform.origin - look_dir, Vector3.UP)
+	var look_dir := model.global_transform.basis.z.lerp(direction, 0.5)
+	if look_dir.length_squared() > 0.01:
+		model.look_at(model.global_transform.origin - look_dir, Vector3.UP)
 	
 	
 func set_carriable(obj: Carriable) -> void:
@@ -155,7 +158,7 @@ func unset_carriable(obj: Carriable) -> void:
 		carriable = null
 		
 		
-func lift_enter(lift: Spatial) -> void:
+func lift_enter(lift: Node3D) -> void:
 	state = PlayerState.Finished
 	
 	

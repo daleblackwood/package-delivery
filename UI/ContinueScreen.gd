@@ -1,9 +1,9 @@
 extends Control
 class_name ContinueScreen
 
-export(SceneTypes.SceneType) var next_scene = 0
-export(bool) var allow_press = true
-export(float, 0.0, 10.0) var duration = 0.0
+@export var next_scene = 0 # (SceneTypes.SceneType)
+@export var allow_press: bool = true
+@export var duration = 0.0 # (float, 0.0, 10.0)
 
 var is_pressed = true
 var time_left = 0.0

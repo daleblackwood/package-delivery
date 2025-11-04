@@ -1,7 +1,7 @@
-extends Camera
+extends Camera3D
 
-export var distance = 20.0
-export var height_multi = 1.3
+@export var distance = 20.0
+@export var height_multi = 1.3
 
 func _process(delta):
 	var target_pos = Vector3()

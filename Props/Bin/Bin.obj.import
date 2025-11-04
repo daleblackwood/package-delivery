@@ -1,20 +1,25 @@
 [remap]
 
 importer="wavefront_obj"
+importer_version=1
 type="Mesh"
-path="res://.import/Bin.obj-0b3d52172519baeaa025c9c86a168284.mesh"
+uid="uid://bd4f2wywv3a8o"
+path="res://.godot/imported/Bin.obj-0b3d52172519baeaa025c9c86a168284.mesh"
 
 [deps]
 
-files=[ "res://.import/Bin.obj-0b3d52172519baeaa025c9c86a168284.mesh" ]
+files=["res://.godot/imported/Bin.obj-0b3d52172519baeaa025c9c86a168284.mesh"]
 
 source_file="res://Props/Bin/Bin.obj"
-dest_files=[ "res://.import/Bin.obj-0b3d52172519baeaa025c9c86a168284.mesh", "res://.import/Bin.obj-0b3d52172519baeaa025c9c86a168284.mesh" ]
+dest_files=["res://.godot/imported/Bin.obj-0b3d52172519baeaa025c9c86a168284.mesh", "res://.godot/imported/Bin.obj-0b3d52172519baeaa025c9c86a168284.mesh"]
 
 [params]
 
 generate_tangents=true
-scale_mesh=Vector3( 1, 1, 1 )
-offset_mesh=Vector3( 0, 0, 0 )
-octahedral_compression=true
-optimize_mesh_flags=4286
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

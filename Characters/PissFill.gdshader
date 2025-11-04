@@ -1,9 +1,9 @@
 shader_type spatial;
 render_mode blend_mix;
 
-uniform sampler2D tex : hint_albedo;
+uniform sampler2D tex : source_color;
 uniform float piss : hint_range(0.0, 1.0) = 0.5;
-uniform vec4 color : hint_color = vec4(1.0, 1.0, 0.0, 1.0);
+uniform vec4 color : source_color = vec4(1.0, 1.0, 0.0, 1.0);
 
 void fragment() {
 	vec3 c = texture(tex, UV).rgb * 0.8;

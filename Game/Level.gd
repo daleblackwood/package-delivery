@@ -1,12 +1,12 @@
-extends Spatial
+extends Node3D
 class_name Level
 
-export(Array, PackedScene) var prefabs = []
+@export var prefabs = [] # (Array, PackedScene)
 
 var players = []
 var packages = []
 var lift: Lift
-var main_light: DirectionalLight
+var main_light: DirectionalLight3D
 var main_light_color: Color
 
 enum LevelState { PreInit, Init, Ready, Playing, LiftOpen, Complete, Failed, Exited }
@@ -16,11 +16,13 @@ var is_built = false
 var state_time = 0.0
 var finish_player_index = -1
 
+func _enter_tree() -> void:
+	Game.level = self
+
 
 func _ready() -> void:
-	Game.level = self
-	lift = find_node("Lift")
-	main_light = find_node("MainLight")
+	lift = find_child("Lift")
+	main_light = find_child("MainLight")
 	main_light_color = main_light.light_color
 	
 	
@@ -30,7 +32,7 @@ func reset() -> void:
 	var origin = lift.global_transform.origin + lift.global_transform.basis.z * 1.0
 	for i in range(Game.player_count):
 		var prefab_i = i % Game.player_count
-		var player = Game.player_prefabs[prefab_i].instance()
+		var player = Game.player_prefabs[prefab_i].instantiate()
 		add_child(player)
 		player.global_transform.origin = origin + Vector3.RIGHT * (i * 2.0 / Game.player_count * 2.0 - Game.player_count)
 		register_player(player)
@@ -45,14 +47,14 @@ func register_player(player) -> void:
 	players.append(player)
 	
 	
-func on_spawned(node: Spatial) -> void:
+func on_spawned(node: Node3D) -> void:
 	if node.name.begins_with("Package"):
 		packages.append(node)
 		
 		
 func on_map_built() -> void:
 	is_built = true
-	call_deferred("reset")
+	reset.call_deferred()
 
 
 func _process(delta: float) -> void:
@@ -105,29 +107,29 @@ func set_state(new_state: int) -> void:
 		state = LevelState.Playing
 	var light_color = main_light_color
 	if state == LevelState.Failed:
-		light_color = Color.yellow
+		light_color = Color.YELLOW
 		GameUI.message.display("Failed!", "You peed yourself.")
 	elif state == LevelState.Complete:
 		var msg = "You have great package!"
 		if Game.player_count > 1:
 			msg = "Player %d gets the promotion!" % (finish_player_index + 1)
 		GameUI.message.display("Stage Complete!", msg)
-		light_color = Color.white
+		light_color = Color.WHITE
 	elif state >= LevelState.LiftOpen:
 		GameUI.message.display("Lift Open!", "Get outta here!")
-		light_color = Color.white
+		light_color = Color.WHITE
 	main_light.light_color = light_color
 	var enable_players = state >= LevelState.Playing and state <= LevelState.Complete
 	for player in players:
 		player.set_enabled(enable_players)
 		
 		
-func instance(prefab_name: String, position: Vector3) -> Spatial:
+func instance(prefab_name: String, position: Vector3) -> Node3D:
 	var prefab = Game.get_prefab(prefab_name)
 	if prefab == null:
 		printerr("Can't instance %s" % prefab_name)
 		return null
-	var instance = prefab.instance() as Spatial
+	var instance = prefab.instantiate() as Node3D
 	add_child(instance)
 	instance.transform.origin = position
 	return instance

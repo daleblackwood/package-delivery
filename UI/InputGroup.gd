@@ -37,7 +37,7 @@ func _process(delta):
 		return
 	if selected == null:
 		select(buttons[0])
-	var selected_pos = selected.rect_global_position
+	var selected_pos = selected.global_position
 	var was_axis_down = is_axis_down
 	var axis = Inputs.get_all_axes()
 	is_axis_down = axis.length_squared() > 0.6
@@ -47,7 +47,7 @@ func _process(delta):
 		for button in buttons:
 			if button == selected:
 				continue
-			var pos = (button as Button).rect_global_position
+			var pos = (button as Button).global_position
 			var dif = pos - selected_pos
 			if axis.dot(dif) < 0:
 				continue

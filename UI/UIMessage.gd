@@ -7,9 +7,9 @@ var time_left = 0.0
 
 
 func _ready():
-	label_title = find_node("Title")
-	label_subtitle = find_node("Subtitle")
-	hide()
+	label_title = find_child("Title")
+	label_subtitle = find_child("Subtitle")
+	_hide()
 	
 	
 func _process(delta):
@@ -17,7 +17,7 @@ func _process(delta):
 		return
 	time_left -= delta
 	if time_left <= 0.0:
-		hide()
+		_hide()
 
 
 func display(title: String, subtitle: String, time: float = 3.0) -> void:
@@ -27,7 +27,7 @@ func display(title: String, subtitle: String, time: float = 3.0) -> void:
 	time_left = time
 	
 	
-func hide() -> void:
+func _hide() -> void:
 	visible = false
 	
 	

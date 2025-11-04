@@ -1,20 +1,25 @@
 [remap]
 
 importer="wavefront_obj"
+importer_version=1
 type="Mesh"
-path="res://.import/Floor.obj-88eea08d37f87dcd3498c23636900653.mesh"
+uid="uid://e7korku3vnb"
+path="res://.godot/imported/Floor.obj-88eea08d37f87dcd3498c23636900653.mesh"
 
 [deps]
 
-files=[ "res://.import/Floor.obj-88eea08d37f87dcd3498c23636900653.mesh" ]
+files=["res://.godot/imported/Floor.obj-88eea08d37f87dcd3498c23636900653.mesh"]
 
 source_file="res://Blocks/Floor.obj"
-dest_files=[ "res://.import/Floor.obj-88eea08d37f87dcd3498c23636900653.mesh", "res://.import/Floor.obj-88eea08d37f87dcd3498c23636900653.mesh" ]
+dest_files=["res://.godot/imported/Floor.obj-88eea08d37f87dcd3498c23636900653.mesh", "res://.godot/imported/Floor.obj-88eea08d37f87dcd3498c23636900653.mesh"]
 
 [params]
 
 generate_tangents=true
-scale_mesh=Vector3( 1, 1, 1 )
-offset_mesh=Vector3( 0, 0, 0 )
-octahedral_compression=true
-optimize_mesh_flags=4286
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

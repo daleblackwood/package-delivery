@@ -1,14 +1,14 @@
-extends Area
+extends Area3D
 
 var drainers = []
 var pissed = false
-var feet: Spatial
+var feet: Node3D
 
 
 func _ready():
-	connect("body_entered", self, "on_body_enter")
-	connect("body_exited", self, "on_body_exit")
-	feet = find_node("Feet")
+	connect("body_entered", Callable(self, "on_body_enter"))
+	connect("body_exited", Callable(self, "on_body_exit"))
+	feet = find_child("Feet")
 	
 	
 func _process(delta):
@@ -26,7 +26,7 @@ func _process(delta):
 func on_body_enter(body: Node) -> void:
 	if pissed:
 		return
-	if not body is Spatial:
+	if not body is Node3D:
 		return
 	if drainers.has(body):
 		return
@@ -36,9 +36,9 @@ func on_body_enter(body: Node) -> void:
 	
 	
 func on_body_exit(body: Node) -> void:
-	if not body is Spatial:
+	if not body is Node3D:
 		return
 	var index = drainers.find(body)
 	if index < 0:
 		return
-	drainers.remove(index)
+	drainers.remove_at(index)

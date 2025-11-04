@@ -4,8 +4,8 @@ var message: UIMessage
 var loader: Control
 
 func _ready():
-	message = find_node("Message")
-	loader = find_node("Loader")
+	message = find_child("Message")
+	loader = find_child("Loader")
 	loader.visible = false
 	
 	

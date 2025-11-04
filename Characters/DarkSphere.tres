@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dx8lxmqh1mwtm"]
+
+[ext_resource type="Shader" uid="uid://look18b3eate" path="res://Shaders/DarkSphere.gdshader" id="1_7m4kh"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_7m4kh")

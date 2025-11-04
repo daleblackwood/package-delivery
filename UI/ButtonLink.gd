@@ -1,9 +1,9 @@
 extends Button
 
-export(String) var link
+@export var link: String
 
 func _ready() -> void:
-	connect("pressed", self, "_on_pressed")
+	connect("pressed", Callable(self, "_on_pressed"))
 	
 	
 func _on_pressed() -> void:

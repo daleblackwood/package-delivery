@@ -6,9 +6,9 @@ var label_comment: Label
 
 
 func _ready():
-	._ready()
-	label_title = find_node("LabelTitle")
-	label_comment = find_node("LabelComment")
+	super._ready()
+	label_title = find_child("LabelTitle")
+	label_comment = find_child("LabelComment")
 	var title_str = "You Win!"
 	var comment_str = "You are the ultimate SPACEBEZOS."
 	if Game.player_count > 1:

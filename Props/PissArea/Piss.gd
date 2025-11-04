@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 const target_radius = 1.6
 

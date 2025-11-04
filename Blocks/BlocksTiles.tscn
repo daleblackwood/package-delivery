@@ -1,76 +1,73 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=17 format=3 uid="uid://c1rwwpiihvkba"]
 
-[ext_resource path="res://Blocks/Shelf.obj" type="ArrayMesh" id=1]
-[ext_resource path="res://Blocks/WarehouseFloorMat.material" type="Material" id=2]
-[ext_resource path="res://Blocks/Floor.obj" type="ArrayMesh" id=3]
-[ext_resource path="res://Props/Conveyor/Conveyor.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Props/Package/Package.obj" type="ArrayMesh" id=5]
-[ext_resource path="res://Props/Bin/Bin.obj" type="ArrayMesh" id=6]
-[ext_resource path="res://Props/Bin/Bin.material" type="Material" id=7]
-[ext_resource path="res://Props/Package/Package.tscn" type="PackedScene" id=8]
-[ext_resource path="res://addons/SpawnGridMap/SpawnGridMapSpawner.gd" type="Script" id=9]
-[ext_resource path="res://Props/Bin/Bin.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Props/Conveyor/Conveyor.material" type="Material" id=11]
-[ext_resource path="res://Props/Conveyor/Conveyor.obj" type="ArrayMesh" id=12]
-[ext_resource path="res://Blocks/Feet.material" type="Material" id=13]
-[ext_resource path="res://Props/PissArea/PissArea.tscn" type="PackedScene" id=14]
+[ext_resource type="ArrayMesh" uid="uid://c78yxri0yyssw" path="res://Blocks/Shelf.obj" id="1"]
+[ext_resource type="ArrayMesh" uid="uid://e7korku3vnb" path="res://Blocks/Floor.obj" id="3"]
+[ext_resource type="PackedScene" path="res://Props/Conveyor/Conveyor.tscn" id="4"]
+[ext_resource type="Material" path="res://Props/Conveyor/Conveyor.material" id="4_qbylr"]
+[ext_resource type="ArrayMesh" uid="uid://dmtsr58vktqt8" path="res://Props/Package/Package.obj" id="5"]
+[ext_resource type="ArrayMesh" uid="uid://bd4f2wywv3a8o" path="res://Props/Bin/Bin.obj" id="6"]
+[ext_resource type="PackedScene" path="res://Props/Package/Package.tscn" id="8"]
+[ext_resource type="Material" path="res://Props/Package/Package.material" id="8_sgcy3"]
+[ext_resource type="Script" uid="uid://bi3tcckk3r0bi" path="res://addons/SpawnGridMap/SpawnGridMapSpawner.gd" id="9"]
+[ext_resource type="PackedScene" path="res://Props/Bin/Bin.tscn" id="10"]
+[ext_resource type="Material" path="res://Props/Bin/Bin.material" id="11_16vr2"]
+[ext_resource type="ArrayMesh" uid="uid://dts02kig4anpq" path="res://Props/Conveyor/Conveyor.obj" id="12"]
+[ext_resource type="Material" uid="uid://cjqkvvbg6mfrh" path="res://Props/PissArea/PissArea.material" id="13_xi3l5"]
+[ext_resource type="PackedScene" uid="uid://cgt0n6kva7mwi" path="res://Props/PissArea/PissArea.tscn" id="14"]
 
-[sub_resource type="BoxShape" id=1]
-extents = Vector3( 1, 0.5, 1 )
+[sub_resource type="BoxShape3D" id="1"]
+size = Vector3(2, 1, 2)
 
-[sub_resource type="PlaneMesh" id=2]
-size = Vector2( 1.2, 1.2 )
+[sub_resource type="PlaneMesh" id="2"]
+size = Vector2(1.2, 1.2)
 
-[node name="Spatial" type="Spatial"]
+[node name="Node3D" type="Node3D"]
 
-[node name="WarehouseFloor" type="MeshInstance" parent="."]
-mesh = ExtResource( 3 )
-material/0 = ExtResource( 2 )
+[node name="WarehouseFloor" type="MeshInstance3D" parent="."]
+mesh = ExtResource("3")
 
-[node name="StaticBody" type="StaticBody" parent="WarehouseFloor"]
+[node name="StaticBody3D" type="StaticBody3D" parent="WarehouseFloor"]
 
-[node name="CollisionShape" type="CollisionShape" parent="WarehouseFloor/StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
-shape = SubResource( 1 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WarehouseFloor/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("1")
 
-[node name="WoodFloor" type="MeshInstance" parent="."]
-transform = Transform( 0.999996, 0.00179044, -0.00201278, -0.00178561, 0.999996, 0.00240919, 0.00201707, -0.0024056, 0.999995, 2, 0, 0 )
-mesh = ExtResource( 1 )
-material/0 = null
-material/1 = null
+[node name="WoodFloor" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.999996, 0.00179044, -0.00201278, -0.00178561, 0.999996, 0.00240919, 0.00201707, -0.0024056, 0.999995, 2, 0, 0)
+mesh = ExtResource("1")
 
-[node name="StaticBody" type="StaticBody" parent="WoodFloor"]
+[node name="StaticBody3D" type="StaticBody3D" parent="WoodFloor"]
 
-[node name="CollisionShape" type="CollisionShape" parent="WoodFloor/StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
-shape = SubResource( 1 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WoodFloor/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("1")
 
-[node name="Conveyor" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0 )
-mesh = ExtResource( 12 )
+[node name="Conveyor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+mesh = ExtResource("12")
 skeleton = NodePath("")
-material/0 = ExtResource( 11 )
-script = ExtResource( 9 )
-scenes = [ ExtResource( 4 ) ]
+surface_material_override/0 = ExtResource("4_qbylr")
+script = ExtResource("9")
+scenes = Array[PackedScene]([ExtResource("4")])
 
-[node name="Package" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.4, 0 )
-mesh = ExtResource( 5 )
-material/0 = null
-script = ExtResource( 9 )
-scenes = [ ExtResource( 8 ) ]
+[node name="Package" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.4, 0)
+mesh = ExtResource("5")
+surface_material_override/0 = ExtResource("8_sgcy3")
+script = ExtResource("9")
+scenes = Array[PackedScene]([ExtResource("8")])
 
-[node name="Bin" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.4, 0 )
-mesh = ExtResource( 6 )
+[node name="Bin" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.4, 0)
+mesh = ExtResource("6")
 skeleton = NodePath("../Package")
-material/0 = ExtResource( 7 )
-script = ExtResource( 9 )
-scenes = [ ExtResource( 10 ) ]
+surface_material_override/0 = ExtResource("11_16vr2")
+script = ExtResource("9")
+scenes = Array[PackedScene]([ExtResource("10")])
 
-[node name="PissArea" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0 )
-mesh = SubResource( 2 )
-material/0 = ExtResource( 13 )
-script = ExtResource( 9 )
-scenes = [ ExtResource( 14 ) ]
+[node name="PissArea" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+mesh = SubResource("2")
+surface_material_override/0 = ExtResource("13_xi3l5")
+script = ExtResource("9")
+scenes = Array[PackedScene]([ExtResource("14")])

@@ -1,20 +1,25 @@
 [remap]
 
 importer="wavefront_obj"
+importer_version=1
 type="Mesh"
-path="res://.import/piss.obj-5203e10672dfda798dbdb72fcb6370bb.mesh"
+uid="uid://be28fsa2r6xb7"
+path="res://.godot/imported/piss.obj-5203e10672dfda798dbdb72fcb6370bb.mesh"
 
 [deps]
 
-files=[ "res://.import/piss.obj-5203e10672dfda798dbdb72fcb6370bb.mesh" ]
+files=["res://.godot/imported/piss.obj-5203e10672dfda798dbdb72fcb6370bb.mesh"]
 
 source_file="res://Props/PissArea/piss.obj"
-dest_files=[ "res://.import/piss.obj-5203e10672dfda798dbdb72fcb6370bb.mesh", "res://.import/piss.obj-5203e10672dfda798dbdb72fcb6370bb.mesh" ]
+dest_files=["res://.godot/imported/piss.obj-5203e10672dfda798dbdb72fcb6370bb.mesh", "res://.godot/imported/piss.obj-5203e10672dfda798dbdb72fcb6370bb.mesh"]
 
 [params]
 
 generate_tangents=true
-scale_mesh=Vector3( 1, 1, 1 )
-offset_mesh=Vector3( 0, 0, 0 )
-octahedral_compression=true
-optimize_mesh_flags=4286
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

@@ -1,6 +1,6 @@
 extends Node
 
-export(PackedScene) var current_scene
+@export var current_scene: PackedScene
 
 var space_pressed = true
 var controller_icons: Control
@@ -8,13 +8,13 @@ var label_connect: Control
 var label_join: Control
 
 func _ready() -> void:
-	var buttons = find_node("Buttons")
+	var buttons = find_child("Buttons")
 	connect_button(buttons, "Button1P", "start_1P")
 	connect_button(buttons, "Button2P", "start_2P")
 	connect_button(buttons, "ButtonQuit", "quit")
-	controller_icons = find_node("ControllerIcons")
-	label_connect = find_node("LabelConnect")
-	label_join = find_node("LabelJoin")
+	controller_icons = find_child("ControllerIcons")
+	label_connect = find_child("LabelConnect")
+	label_join = find_child("LabelJoin")
 	if Inputs.joysticks.size() < 1:
 		Inputs.set_discovery(true)
 	
@@ -31,7 +31,7 @@ func connect_button(group: InputGroup, button_name: String, func_name: String) -
 	if button == null:
 		printerr("Can't find button '%s'" % button_name)
 		return
-	button.connect("pressed", self, func_name)
+	button.connect("pressed", Callable(self, func_name))
 	
 		
 func start_1P() -> void:
@@ -51,5 +51,5 @@ func _start() -> void:
 	
 
 func quit() -> void:
-	OS.window_fullscreen = false
+	get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN if (false) else Window.MODE_WINDOWED
 	get_tree().quit(0)

@@ -1,26 +1,26 @@
 extends Node
 
-export(int, 0, 4) var player_count = 2
-export(Array, PackedScene) var player_prefabs
-export(Array, PackedScene) var prefabs
-export(Array, PackedScene) var levels
-export(PackedScene) var scene_scores
-export(PackedScene) var scene_menu
-export(PackedScene) var scene_settings
+@export var player_count = 2 # (int, 0, 4)
+@export var player_prefabs: Array[PackedScene] # (Array, PackedScene)
+@export var prefabs: Array[PackedScene] # (Array, PackedScene)
+@export var levels: Array[PackedScene] # (Array, PackedScene)
+@export var scene_scores: PackedScene
+@export var scene_menu: PackedScene
+@export var scene_settings: PackedScene
 
 
-var level
-var current_scene: String = ""
-var history = []
-var time = 0.0
-var state_func = ""
-var state_time = 0.0
-var scores = []
+var level: Level
+var current_scene := ""
+var history := []
+var time := 0.0
+var state_func := ""
+var state_time := 0.0
+var scores := []
 
 
 func _ready():
 	if not OS.is_debug_build():
-		OS.window_fullscreen = true
+		get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN if (true) else Window.MODE_WINDOWED
 
 
 func _process(delta: float) -> void:
@@ -34,7 +34,7 @@ func _process(delta: float) -> void:
 	
 		
 func reload_scene() -> void:
-	var scene_title = scene_path_to_title(current_scene)
+	var scene_title := scene_path_to_title(current_scene)
 	GameUI.show_loader(true)
 	set_state("_load_scene_switch")
 	
@@ -63,7 +63,7 @@ func load_scene(scene_or_path, scene_title: String = "") -> void:
 
 	
 func _load_scene_switch() -> void:
-	get_tree().change_scene(current_scene)
+	get_tree().change_scene_to_file(current_scene)
 	set_state("_load_scene_wait")
 	
 	
@@ -89,8 +89,8 @@ func get_next_level() -> PackedScene:
 	return next_level
 		
 		
-func get_level_index(name: String) -> int:
-	var key = parse_resource_key(name)
+func get_level_index(_name: String) -> int:
+	var key = parse_resource_key(_name)
 	for i in range(levels.size()):
 		if parse_resource_key(levels[i]) == key:
 			return i
@@ -196,10 +196,10 @@ func parse_resource_name(name_path_or_resource) -> String:
 	var result = parse_resource_path(name_path_or_resource)
 	if result == null or result.length() < 1:
 		return ""
-	var last_slash = result.find_last("/")
+	var last_slash = result.rfind("/")
 	if last_slash >= 0:
 		result = result.substr(last_slash + 1)
-	var last_dot = result.find_last(".")
+	var last_dot = result.rfind(".")
 	if last_dot >= 0:
 		result = result.substr(0, last_dot)
 	result = result.replace("_", " ")

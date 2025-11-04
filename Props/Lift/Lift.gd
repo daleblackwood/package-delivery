@@ -1,21 +1,21 @@
-extends StaticBody
+extends StaticBody3D
 class_name Lift
 
 
-var area: Area
+var area: Area3D
 var bodies = []
-var doorL: Spatial
-var doorR: Spatial
-var doorCollider: CollisionShape
+var doorL: Node3D
+var doorR: Node3D
+var doorCollider: CollisionShape3D
 
 
 func _ready() -> void:
-	area = find_node("Area")
-	area.connect("body_entered", self, "on_body_enter")
-	area.connect("body_exited", self, "on_body_exit")
-	doorL = find_node("LiftDoorL")
-	doorR = find_node("LiftDoorR")
-	doorCollider = find_node("DoorCollider")
+	area = find_child("Area3D")
+	area.connect("body_entered", Callable(self, "on_body_enter"))
+	area.connect("body_exited", Callable(self, "on_body_exit"))
+	doorL = find_child("LiftDoorL")
+	doorR = find_child("LiftDoorR")
+	doorCollider = find_child("DoorCollider")
 	set_open(false)
 	
 	
@@ -26,7 +26,7 @@ func set_open(value: bool) -> void:
 
 
 func on_body_enter(body: Node) -> void:
-	if body is KinematicBody == false:
+	if body is CharacterBody3D == false:
 		return
 	if bodies.has(body):
 		return
@@ -36,12 +36,12 @@ func on_body_enter(body: Node) -> void:
 	
 	
 func on_body_exit(body: Node) -> void:
-	if body is KinematicBody == false:
+	if body is CharacterBody3D == false:
 		return
 	var index = bodies.find(body)
 	if index < 0:
 		return
 	if body.has_method("lift_exit"):
 		body.call_deferred("lift_exit", self)
-	bodies.remove(index)
+	bodies.remove_at(index)
 	

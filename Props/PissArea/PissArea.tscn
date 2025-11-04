@@ -1,33 +1,36 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://cgt0n6kva7mwi"]
 
-[ext_resource path="res://Props/PissArea/PissArea.gd" type="Script" id=1]
-[ext_resource path="res://Props/PissArea/PissArea.material" type="Material" id=2]
-[ext_resource path="res://Blocks/Feet.material" type="Material" id=3]
+[ext_resource type="Script" uid="uid://b8vbvoic76byp" path="res://Props/PissArea/PissArea.gd" id="1"]
+[ext_resource type="Material" uid="uid://cjqkvvbg6mfrh" path="res://Props/PissArea/PissArea.material" id="2"]
+[ext_resource type="Material" path="res://Blocks/Feet.material" id="3"]
 
-[sub_resource type="SphereMesh" id=1]
-material = ExtResource( 2 )
+[sub_resource type="SphereMesh" id="1"]
+material = ExtResource("2")
 radius = 2.0
 height = 4.0
 
-[sub_resource type="PlaneMesh" id=2]
-size = Vector2( 1.2, 1.2 )
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m52ic"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 0.33333334)
 
-[sub_resource type="SphereShape" id=3]
+[sub_resource type="PlaneMesh" id="2"]
+size = Vector2(1.2, 1.2)
+
+[sub_resource type="SphereShape3D" id="3"]
 radius = 2.0
 
-[node name="PissArea" type="Area"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 4 )
-script = ExtResource( 1 )
+[node name="PissArea" type="Area3D"]
+script = ExtResource("1")
 
-[node name="DarkSphere" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
-mesh = SubResource( 1 )
-material/0 = null
+[node name="DarkSphere" type="MeshInstance3D" parent="."]
+mesh = SubResource("1")
+surface_material_override/0 = SubResource("StandardMaterial3D_m52ic")
 
-[node name="Feet" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0 )
-mesh = SubResource( 2 )
-material/0 = ExtResource( 3 )
+[node name="Feet" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+mesh = SubResource("2")
+surface_material_override/0 = ExtResource("3")
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 3 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("3")

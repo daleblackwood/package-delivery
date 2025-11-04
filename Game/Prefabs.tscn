@@ -1,7 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://c4mbywwldc5d1"]
 
-[sub_resource type="GDScript" id=1]
-script/source = "extends Spatial
+[sub_resource type="GDScript" id="1"]
+script/source = "extends Node3D
 
 
 # Declare member variables here. Examples:
@@ -19,5 +19,5 @@ func _ready():
 #	pass
 "
 
-[node name="Spatial" type="Spatial"]
-script = SubResource( 1 )
+[node name="Node3D" type="Node3D"]
+script = SubResource("1")

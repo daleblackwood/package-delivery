@@ -40,7 +40,7 @@ func _process(delta: float) -> void:
 	while inputs.size() < Game.player_count:
 		inputs.append(PlayerInput.new())
 	while inputs.size() > Game.player_count:
-		inputs.remove(inputs.size() - 1)
+		inputs.remove_at(inputs.size() - 1)
 	for i in range(inputs.size()):
 		process_input(inputs[i], i)
 	
