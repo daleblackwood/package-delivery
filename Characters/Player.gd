@@ -13,7 +13,9 @@ var carriable: Carriable = null
 var player_index = 0
 var level: Node3D
 var piss_time = 0.0
-var is_draining = false
+
+enum DrainMode { OFF, FILLING, DRAINING }
+var drain_mode = DrainMode.OFF
 var is_enabled = true
 var move_input = Vector3()
 
@@ -65,19 +67,26 @@ func _process(delta: float) -> void:
 		
 		
 func process_piss(delta: float) -> void:
-	if is_draining:
+	if drain_mode == DrainMode.DRAINING:
 		piss_time -= delta * 10.0
 		if piss_time < 0.0:
 			piss_time = 0.0
-			is_draining = false
+			drain_mode = DrainMode.FILLING
 	else:
-		piss_time += delta
+		if is_carrying():
+			if drain_mode == DrainMode.OFF:
+				drain_mode = DrainMode.FILLING
+			piss_time += delta * 2.5
+		elif drain_mode == DrainMode.FILLING:
+			piss_time += delta * 0.7
 	var pissv = clamp(piss_time / piss_duration, 0.0, 1.0)
 	for piss_mat in piss_mats:
 		piss_mat.set_shader_parameter("piss", pissv)
 	if piss_time >= piss_duration:
 		die_piss()
 	var shake = pissv * 0.05
+	if is_carrying():
+		shake = min(shake * 3.0, 0.2)
 	model.transform.origin = Vector3(
 		randf_range(-shake, shake),
 		randf_range(-shake, shake),
@@ -165,8 +174,12 @@ func lift_enter(lift: Node3D) -> void:
 func drain_piss() -> void:
 	if not can_piss():
 		return
-	is_draining = true
+	drain_mode = DrainMode.DRAINING
 	
 	
 func can_piss() -> bool:
-	return not is_draining and (carriable == null or carriable.carrier != self)
+	return drain_mode == DrainMode.FILLING and not is_carrying()
+	
+	
+func is_carrying() -> bool:
+	return carriable and carriable.carrier == self

@@ -7,13 +7,7 @@
 [ext_resource type="Script" uid="uid://lqfwu3uqctmn" path="res://Camera/StageCam.gd" id="6_qoa3l"]
 [ext_resource type="PackedScene" uid="uid://cudc6q6fakr7m" path="res://Props/Lift/Lift.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://c1rwwpiihvkba" path="res://Blocks/BlocksTiles.tscn" id="8"]
-
-[sub_resource type="Environment" id="Environment_qoa3l"]
-background_mode = 1
-background_color = Color(0.306706, 0.367312, 0.521907, 1)
-ambient_light_source = 2
-ambient_light_color = Color(0.482299, 0.504178, 0.490827, 1)
-ambient_light_energy = 0.0
+[ext_resource type="PackedScene" uid="uid://cc3tqpjktdjcf" path="res://Props/LightRig.tscn" id="8_uxjve"]
 
 [node name="Level" type="Node3D"]
 script = ExtResource("3")
@@ -37,12 +31,5 @@ script = ExtResource("6_qoa3l")
 [node name="Lift" parent="." instance=ExtResource("7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1, 2)
 
-[node name="MainLight" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.666051, 0.682785, -0.300301, -0.213397, 0.560197, 0.8004, 0.714729, -0.469024, 0.518824, 0, 10, 0)
-light_color = Color(0.703514, 0.726735, 0.734871, 1)
-light_energy = 2.914
-shadow_enabled = true
-shadow_opacity = 0.61
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="MainLight"]
-environment = SubResource("Environment_qoa3l")
+[node name="LightRig" parent="." instance=ExtResource("8_uxjve")]
+transform = Transform3D(0.66605115, 0.68278503, -0.3003009, -0.15951212, 0.523667, 0.8368565, 0.72865075, -0.5094876, 0.45770144, 0, 10, 0)

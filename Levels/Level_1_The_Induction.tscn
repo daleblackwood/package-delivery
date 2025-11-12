@@ -4,16 +4,10 @@
 [ext_resource type="Script" uid="uid://lqfwu3uqctmn" path="res://Camera/StageCam.gd" id="2"]
 [ext_resource type="Script" uid="uid://o6d7kqked1nx" path="res://Game/Level.gd" id="3"]
 [ext_resource type="MeshLibrary" uid="uid://d3vd01st7umv8" path="res://Blocks/Blocks.meshlib" id="3_y276x"]
-[ext_resource type="PackedScene" path="res://Props/PissArea/Piss.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://cccdp1yggxo5n" path="res://Props/PissArea/Piss.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://cudc6q6fakr7m" path="res://Props/Lift/Lift.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://c1rwwpiihvkba" path="res://Blocks/BlocksTiles.tscn" id="8"]
-
-[sub_resource type="Environment" id="Environment_y276x"]
-background_mode = 1
-background_color = Color(0.306706, 0.367312, 0.521907, 1)
-ambient_light_source = 2
-ambient_light_color = Color(0.482299, 0.504178, 0.490827, 1)
-ambient_light_energy = 0.0
+[ext_resource type="PackedScene" uid="uid://cc3tqpjktdjcf" path="res://Props/LightRig.tscn" id="8_1qqvy"]
 
 [node name="Level" type="Node3D"]
 script = ExtResource("3")
@@ -38,12 +32,4 @@ script = ExtResource("2")
 [node name="Lift" parent="." instance=ExtResource("7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1, 2)
 
-[node name="MainLight" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.666051, 0.682785, -0.300301, -0.213397, 0.560197, 0.8004, 0.714729, -0.469024, 0.518824, 0, 10, 0)
-light_color = Color(0.703514, 0.726735, 0.734871, 1)
-light_energy = 2.914
-shadow_enabled = true
-shadow_opacity = 0.61
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="MainLight"]
-environment = SubResource("Environment_y276x")
+[node name="LightRig" parent="." instance=ExtResource("8_1qqvy")]
