@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://cc3tqpjktdjcf"]
+
+[sub_resource type="Environment" id="Environment_qoa3l"]
+background_mode = 1
+background_color = Color(0.306706, 0.367312, 0.521907, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.482299, 0.504178, 0.490827, 1)
+ambient_light_energy = 0.0
+
+[node name="LightRig" type="Node3D"]
+transform = Transform3D(0.6660511, 0.68278503, -0.30030087, -0.15951212, 0.523667, 0.8368565, 0.72865075, -0.50948757, 0.4577014, 0, 0, 0)
+
+[node name="MainLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.99692976, -0.05471137, -0.05601397, 0.049851656, 0.9951538, -0.08475739, 0.060379714, 0.081704736, 0.99482584, 0, 0, 0)
+light_color = Color(0.65109205, 0.7374801, 0.7738291, 1)
+light_energy = 3.024
+shadow_enabled = true
+shadow_bias = 0.031
+shadow_normal_bias = 3.172
+shadow_opacity = 0.39
+shadow_blur = 0.379
+directional_shadow_split_1 = 0.148
+directional_shadow_split_2 = 0.383
+directional_shadow_split_3 = 0.728
+directional_shadow_max_distance = 68.9
+directional_shadow_pancake_size = 366.4
+
+[node name="Backlight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.51828057, -0.8541529, -0.042521268, -0.5971919, 0.32587668, 0.7329163, -0.61216605, 0.4052499, -0.6789888, 0, 0, 0)
+light_color = Color(0.68204343, 0.7318864, 0.7406277, 1)
+light_energy = 0.854
+shadow_opacity = 0.61
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qoa3l")
